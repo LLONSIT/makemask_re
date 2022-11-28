@@ -8,6 +8,9 @@ typedef unsigned char u8;
 
 //TODO: Document this Function
 //thanks fluffy! (decomp.me anon)
+
+//CIC bootcode
+
 void calc3(u32 arg0) {
     
      u32 A[4];
@@ -108,7 +111,7 @@ int main(int argc, char** argv) {
     }
     
     sp10103C = 0x3F;
-    calc3(sp10103C); //BOOTCODE
+    calc3(sp10103C); //Writing the BootCode
     
     sp101044 = fopen(argv[1], "rb+");
     fseek(sp101044, 0x10, 0);
