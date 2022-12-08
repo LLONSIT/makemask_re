@@ -11,12 +11,28 @@ typedef unsigned char u8;
 
 //CIC bootcode
 
+u32 A[0x100];
+
+#define SEEK_SET 0
+
+u32 code1;
+u32 code2;
+
+#define HEADER_SIZE (0x40)
+#define IPL3_OFFSET HEADER_SIZE
+#define IPL3_SIZE (0x1000 - 0x40)
+#define MAKEROM_SIZE (HEADER_SIZE + IPL3_SIZE)
+#define CHECKSUMMED_SIZE 0x100000
+
+#define BUFF_SIZE (HEADER_SIZE + IPL3_SIZE + CHECKSUMMED_SIZE + 8)
+// 0x40402
+#define BUFF_COUNT (BUFF_SIZE / sizeof(u32))
+
+
+
 void calc3(u32 arg0) {
-    
-     u32 A[4];
-    u32 code1;
-    u32 code2;
-    
+
+
     u32 sp2C;
     u32 sp28;
     u32 sp24;
@@ -56,29 +72,24 @@ void calc3(u32 arg0) {
 
 
 int main(int argc, char** argv) {
-    
-    u32 A[4];
-    u32 code1;
-    u32 code2;
+    // FILE* sp101044;
+    // FILE* sp101040;
+    // int sp10103C;
+    // int pad;
 
-    FILE* sp101044;
-    FILE* sp101040;
-    int sp10103C;
-    int sp30[0x40403];
-    u8 sp2F;
-    s32 sp28;
-    s32 sp24;
-    // s32 temp_t6_2;
-    // s32 temp_t8;
-    // s32 temp_t8_2;
-    // s32 temp_t9;
-    // u8 temp_t5;
-    // u8 temp_t6;
-    // u8 sp30[4]; //
-    
-    // sp100000.unk1048 = arg0;
-    // sp100000.unk104C = arg1;
-    
+    // int sp30[BUFF_COUNT];
+    // char sp2F;
+    // int sp28;
+    // int sp24;
+    FILE* out; // output file
+    FILE* ipl3_file; // file from which to copy IPL3
+    int chksum_seed;   // Checksum seed
+    int pad;        // Either this or the buffer is 1 word bigger, although seems unlikely given the fread
+    int buf[BUFF_COUNT]; // buffer
+    char ch; // multipurpose single-byte temp
+    int i;
+    int j;
+
     printf("makemask ver.2.02\n");
     
     if (argc < 2) {
@@ -86,11 +97,11 @@ int main(int argc, char** argv) {
         return -1;
     }
     
-    if ((sp101044 = fopen(argv[1],"r")) == 0) {
+    if ((out = fopen(argv[1],"r")) == 0) {
         fprintf(stderr,"Ouch!! The rom file doesn't exist.\n");
         return -1;
     }
-    if (fread(&sp30[0], 4, 0x40402, sp101044) != 0x40402) {
+    if (fread(buf, sizeof(u32), BUFF_COUNT, out) != BUFF_COUNT) {
         fprintf(stderr, "Ouch!! The rom file is too small.\n");
         fprintf(stderr, "Rom size must be bigger than 9Mbits.\n");
         fprintf(stderr, "You can make a big ROM by makerom.\n");
@@ -98,49 +109,44 @@ int main(int argc, char** argv) {
         return -1;
     }
     
-    if ((sp101040 = fopen("/usr/sbin/makemask", "r")) == 0) {
+    if ((ipl3_file = fopen("/usr/sbin/makemask", "r")) == 0) {
         fprintf(stderr, "Ouch!! \"/usr/sbin/makemask\" doesn't exist.\n");
         return -1;
     }
     
-    fclose(sp101044);
-    
-    for(sp28 = 0; sp28 < 0x40002 ; sp28++ )  {
-        A[sp28] = sp30[0x400 + sp28];
-        
+    fclose(out);
+
+    // 0x40002
+    for(i = 0; i < (BUFF_SIZE - MAKEROM_SIZE) / (int)sizeof(u32); i++ )  {
+        A[i] = buf[MAKEROM_SIZE / sizeof(u32) + i];
     }
-    
-    sp10103C = 0x3F;
-    calc3(sp10103C); //Writing the BootCode
-    
-    sp101044 = fopen(argv[1], "rb+");
-    fseek(sp101044, 0x10, 0);
-    
-    
-    for(sp28 = 3 ; sp28 >= 0 ; sp28--) {
-        sp2F = ((u32) code1 >> (sp28 * 8)) & 0xFF;
-        fputc(sp2F, sp101044);
-        }
-   
 
-    for(sp28 = 3 ; sp28 >= 0 ; sp28--) {
-        sp2F = ((u32) code2 >> (sp28 * 8)) & 0xFF;
-        fputc(sp2F, sp101044);
-    
-    } 
-    
-    fseek(sp101044, 0x40, 0);
-    fseek(sp101040, 0x4624, 0);
-    
-    
-             /* irregular */
-    for(sp24 = 0x40 ; sp24 < 0x1000 ; sp24++ ) {
-        sp2F = fgetc(sp101040);
-        fputc(sp2F, sp101044);
-        }
-        
+    // Calculate checksum
+    chksum_seed = 0x3F;
+    calc3(chksum_seed); //BOOTCODE
 
-    fclose(sp101044);
-    fclose(sp101040);
+    // copy checksum byte by byte
+    out = fopen(argv[1], "rb+");
+    fseek(out, 0x10, SEEK_SET);
+    for(i = 3 ; i >= 0 ; i--) {
+        ch = (code1 >> (i * 8)) & 0xFF;
+        fputc(ch, out);
+    }
+    for(i = 3 ; i >= 0 ; i--) {
+        ch = (code2 >> (i * 8)) & 0xFF;
+        fputc(ch, out);
+    }
+
+    // copy IPL3
+    fseek(out, IPL3_OFFSET, SEEK_SET);
+    // Copies from a known offset into this file? Scary
+    fseek(ipl3_file, 0x4624, SEEK_SET);
+    for(j = IPL3_OFFSET; j < MAKEROM_SIZE; j++ ) {
+        ch = fgetc(ipl3_file);
+        fputc(ch, out);
+    }
+
+    fclose(out);
+    fclose(ipl3_file);
     return 0;
 }
