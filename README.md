@@ -16,7 +16,7 @@ This is a matching decompilation of Makemask 2.0.2 version Irix binary
 ```diff
 - Note -
 
-* Currently the gcc build is buggy
+* Currently the gcc maybe could have some bugs
 
 ```
 
