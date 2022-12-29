@@ -9,16 +9,14 @@
 IRIX ?=  0
 
 #Build the irix binary using qemu-irix with an "irix root"
-CROSS ?= 0
+CROSS ?= 1
 
 #IRIX 6.5.30 root
 ROOT = tools/irix
 
 
 #maybe -KPIC should be necesary
-ifeq ($(IRIX),1)
- CFLAGS :=  -I /usr/include/ -g0 -O1 -KPIC -mips1 -fullwarn -wlint,-fph -Wab,-r4300_mul -Xcpluscomm -nostdinc
-endif
+SGI_CFLAGS :=  -I /usr/include/ -g0 -O1 -KPIC -mips1 -fullwarn -wlint,-fph -Wab,-r4300_mul -Xcpluscomm -nostdinc
 
 ifeq ($(CROSS),1)
  CFLAGS := -g0 -O1 -KPIC -mips1 -fullwarn -wlint,-fph -Wab, -Xcpluscomm -nostdinc -I $(ROOT)/usr/include
@@ -29,8 +27,12 @@ else
 endif
 
 all:
-	$(CC) $(CFLAGS) makemask.c -o makemask
 
+ifeq ($(IRIX),1)
+	$(CC) $(SGI_CFLAGS) makemask.c -o makemask
+else
+	$(CC) $(CFLAGS) makemask.c -o makemask
+endif
 
 clean:
 	rm makemask
