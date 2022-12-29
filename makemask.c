@@ -11,7 +11,7 @@ typedef unsigned char u8;
 
 //CIC bootcode
 
-u32 A[0x100];
+u32 A[0x40002];
 
 #define SEEK_SET 0
 
