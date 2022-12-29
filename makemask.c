@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "include/structs.h"
 
 typedef unsigned int u32;
 typedef signed int s32;
 typedef unsigned char u8;
 
-/*TODO: Document this Function*/
-/*thanks fluffy! (decomp.me anon)*/
+//TODO: Document this Function
+//thanks fluffy! (decomp.me anon)
 
-/*CIC bootcode*/
-static u32 A[0x40002];
+//CIC bootcode
 
+u32 A[0x40002];
+
+#define SEEK_SET 0
 
 u32 code1;
 u32 code2;
-
-#define SEEK_SET 0
 
 #define HEADER_SIZE (0x40)
 #define IPL3_OFFSET HEADER_SIZE
@@ -24,8 +25,9 @@ u32 code2;
 #define CHECKSUMMED_SIZE 0x100000
 
 #define BUFF_SIZE (HEADER_SIZE + IPL3_SIZE + CHECKSUMMED_SIZE + 8)
-/* 0x40402*/
+// 0x40402
 #define BUFF_COUNT (BUFF_SIZE / sizeof(u32))
+
 
 
 void calc3(u32 arg0) {
@@ -68,7 +70,17 @@ void calc3(u32 arg0) {
 }
 
 
+
 int main(int argc, char** argv) {
+    // FILE* sp101044;
+    // FILE* sp101040;
+    // int sp10103C;
+    // int pad;
+
+    // int sp30[BUFF_COUNT];
+    // char sp2F;
+    // int sp28;
+    // int sp24;
     FILE* out; // output file
     FILE* ipl3_file; // file from which to copy IPL3
     int chksum_seed;   // Checksum seed
@@ -138,4 +150,3 @@ int main(int argc, char** argv) {
     fclose(ipl3_file);
     return 0;
 }
-
