@@ -1,0 +1,11 @@
+#ifndef __CMATH__
+#define __CMATH__
+#ifndef _LIBC_IN_NAMESPACE_STD_
+#error This header requires the -LANG:libc_in_namespace_std option
+#endif /* _LIBC_IN_NAMESPACE_STD_ */
+#include <internal/math_core.h>
+#endif /* __CMATH__ */
+
+// Local Variables:
+// mode:C++
+// End:

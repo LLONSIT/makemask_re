@@ -1,0 +1,20 @@
+#ifndef __CLOCALE__
+#define __CLOCALE__
+#ifndef _LIBC_IN_NAMESPACE_STD_
+#error This header requires the -LANG:libc_in_namespace_std option
+#endif /* _LIBC_IN_NAMESPACE_STD_ */
+#include <internal/locale_core.h>
+
+// For reasons for binary compatibility, we're defining struct lconv
+// in the global namespace and importing it into namespace std, rather
+// than the other way around.
+
+__SGI_LIBC_BEGIN_NAMESPACE_STD
+__SGI_LIBC_USING_FROM_GLOBAL(lconv)
+__SGI_LIBC_END_NAMESPACE_STD
+
+#endif /* __CLOCALE__ */
+
+// Local Variables:
+// mode:C++
+// End:

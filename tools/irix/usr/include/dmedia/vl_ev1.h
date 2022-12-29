@@ -1,0 +1,244 @@
+/******************************************************************************
+*
+*  dev_ev1.h -- Express Video definitions
+*
+* $Revision: 1.43 $
+******************************************************************************/
+
+/*
+ * Controls;
+ */
+
+#ifndef _EV1_DEV_INCLUDE
+#define _EV1_DEV_INCLUDE 1
+
+#define VL_EV1_CTL_BASE		(('E'<<24)|('V'<<16))
+
+/*
+ * wipe controls
+ */
+
+#define VL_EV1_WIPE_TYPE	(VL_EV1_CTL_BASE +  0)
+#define VL_EV1_WIPE_DIRECTION   (VL_EV1_CTL_BASE +  1)	/* VL_EV1_WIPE_ANGLE */
+#define VL_EV1_WIPE_SHARPNESS   (VL_EV1_CTL_BASE +  2)	/* VL_EV1_WIPE_FUZZ */
+#define VL_EV1_WIPE_ANGLE	(VL_EV1_CTL_BASE +  3)
+#define VL_EV1_WIPE_POSN	(VL_EV1_CTL_BASE +  4)
+#define VL_EV1_WIPE_POSN_PERP	(VL_EV1_CTL_BASE +  5)
+#define VL_EV1_WIPE_CENT	(VL_EV1_CTL_BASE +  6)
+#define VL_EV1_WIPE_CENT_PERP	(VL_EV1_CTL_BASE +  7)
+#define VL_EV1_WIPE_REPT	(VL_EV1_CTL_BASE +  8)
+#define VL_EV1_WIPE_REPT_PERP	(VL_EV1_CTL_BASE +  9)
+#define VL_EV1_WIPE_SPEED	(VL_EV1_CTL_BASE + 10)
+#define VL_EV1_WIPE_FUZZ	(VL_EV1_CTL_BASE + 11)
+
+/*
+ * Keyer modes
+ */
+
+#define VL_EV1_KEYERMODE_NONE		0
+#define VL_EV1_KEYERMODE_LUMA		1
+#define	VL_EV1_KEYERMODE_CHROMA		2
+#define VL_EV1_KEYERMODE_SPATIAL	3
+
+/*
+ *	Wipe Types
+ */
+#define VL_EV1_WIPETYPE_NONE	0
+#define VL_EV1_WIPETYPE_FADE	1
+#define VL_EV1_WIPETYPE_TILE	2
+#define VL_EV1_WIPETYPE_SINGLE	3
+#define VL_EV1_WIPETYPE_DOUBLE	4
+#define VL_EV1_WIPETYPE_CORNER	5
+
+/*
+ *	Wipe Directions 
+ */
+#define	VL_EV1_WIPEANGLE_NONE	0
+#define	VL_EV1_WIPEANGLE_E	1
+#define	VL_EV1_WIPEANGLE_NE	2
+#define	VL_EV1_WIPEANGLE_N	3
+#define	VL_EV1_WIPEANGLE_NW	4
+#define	VL_EV1_WIPEANGLE_W	5
+#define	VL_EV1_WIPEANGLE_SW	6
+#define	VL_EV1_WIPEANGLE_S	7
+#define	VL_EV1_WIPEANGLE_SE	8
+
+/*
+ * additional sync type for galileo
+ */
+
+#define VL_EV1_SYNC_SLAVE	0x10000000
+
+
+/* EV1 digital camera (IndyCam) controls */
+
+#define VL_EV1_INDYCAM_AGCENA		(VL_EV1_CTL_BASE + 12)
+#define VL_EV1_INDYCAM_AWBCTL		(VL_EV1_CTL_BASE + 13)
+#define VL_EV1_INDYCAM_SHUTTER		(VL_EV1_CTL_BASE + 14)
+#define VL_EV1_INDYCAM_SHUTTER_SNAP	(VL_EV1_CTL_BASE + 15)
+#define VL_EV1_INDYCAM_BRIGHTNESS	(VL_EV1_CTL_BASE + 16)
+#define VL_EV1_INDYCAM_GAIN		(VL_EV1_CTL_BASE + 17)
+#define VL_EV1_INDYCAM_RED_BALANCE	(VL_EV1_CTL_BASE + 18)
+#define VL_EV1_INDYCAM_BLUE_BALANCE	(VL_EV1_CTL_BASE + 19)
+#define VL_EV1_INDYCAM_SATURATION	(VL_EV1_CTL_BASE + 20)
+#define VL_EV1_INDYCAM_BLUE_SATURATION	(VL_EV1_CTL_BASE + 21)
+
+#define VL_EV1_FILTER			(VL_EV1_CTL_BASE + 22)
+#define VL_EV1_QUALITY			(VL_EV1_CTL_BASE + 23)
+#define VL_EV1_CORING			(VL_EV1_CTL_BASE + 24)
+#define VL_EV1_APERTURE			(VL_EV1_CTL_BASE + 25)
+#define VL_EV1_BANDPASS			(VL_EV1_CTL_BASE + 26)
+#define VL_EV1_PREFILTER		(VL_EV1_CTL_BASE + 27)
+#define VL_EV1_SVHS_CHROMA		(VL_EV1_CTL_BASE + 28)
+#define VL_EV1_COLOR_IN_ON		(VL_EV1_CTL_BASE + 29)
+#define VL_EV1_PEAK_WHITE		(VL_EV1_CTL_BASE + 30)
+#define VL_EV1_AGC_CONTROL		(VL_EV1_CTL_BASE + 31)
+#define VL_EV1_LUMA_DELAY		(VL_EV1_CTL_BASE + 32)
+#define VL_EV1_CHROMA_DELAY		(VL_EV1_CTL_BASE + 33)
+#define VL_EV1_VNOISE_REDUCER		(VL_EV1_CTL_BASE + 34)
+#define VL_EV1_BOTTOM_FLUTTER		(VL_EV1_CTL_BASE + 35)
+#define VL_EV1_CHROMA_GAIN		(VL_EV1_CTL_BASE + 36)
+#define VL_EV1_COLOR_KILL_THRES		(VL_EV1_CTL_BASE + 37)
+#define VL_EV1_H_PICTURE_POSITION	(VL_EV1_CTL_BASE + 38)
+#define VL_EV1_TBC_MODE			(VL_EV1_CTL_BASE + 39)
+#define VL_EV1_V_GAIN_VERNIER		(VL_EV1_CTL_BASE + 40)
+#define VL_EV1_U_GAIN_VERNIER		(VL_EV1_CTL_BASE + 41)
+#define VL_EV1_H_PHASE			(VL_EV1_CTL_BASE + 42)
+#define VL_EV1_H_OFFSET			(VL_EV1_CTL_BASE + 43)
+#define VL_EV1_V_OFFSET			(VL_EV1_CTL_BASE + 44)
+#define VL_EV1_BLANK_LINE		(VL_EV1_CTL_BASE + 45)
+#define VL_EV1_CHROMA_BAND		(VL_EV1_CTL_BASE + 46)
+#define VL_EV1_C_GAIN			(VL_EV1_CTL_BASE + 47)
+#define VL_EV1_YC_GAIN			(VL_EV1_CTL_BASE + 48)
+#define VL_EV1_RGB_GAIN			(VL_EV1_CTL_BASE + 49)
+#define VL_EV1_SYNC_LEVEL		(VL_EV1_CTL_BASE + 50)
+#define VL_EV1_UV_LEVEL			(VL_EV1_CTL_BASE + 51)
+#define VL_EV1_YG_SYNC			(VL_EV1_CTL_BASE + 52)
+#define VL_EV1_ANTI_DITHER		(VL_EV1_CTL_BASE + 53)
+#define VL_EV1_COLOR_OUT_ON		(VL_EV1_CTL_BASE + 54)
+#define VL_EV1_SCH_PHASE		(VL_EV1_CTL_BASE + 55)
+#define VL_EV1_SUB_FREQ			(VL_EV1_CTL_BASE + 56)
+#define VL_EV1_DELAY_SYNC		(VL_EV1_CTL_BASE + 57)
+#define VL_EV1_V_GAIN_ROUGH		(VL_EV1_CTL_BASE + 58)
+#define VL_EV1_U_GAIN_ROUGH		(VL_EV1_CTL_BASE + 59)
+#define VL_EV1_GENLOCK_SRC		(VL_EV1_CTL_BASE + 60)
+#define VL_EV1_DEINTERLACE              (VL_EV1_CTL_BASE + 61)
+#define VL_EV1_LOCK_PORT0               (VL_EV1_CTL_BASE + 62)
+#define VL_EV1_ENC_BLANK                (VL_EV1_CTL_BASE + 63)
+#define VL_EV1_ENC_BLACK                (VL_EV1_CTL_BASE + 64)
+#define VL_EV1_ENC_WHITE                (VL_EV1_CTL_BASE + 65)
+#define VL_EV1_ENC_UVGAIN               (VL_EV1_CTL_BASE + 66)
+#define VL_EV1_ENC_QUANTIZE             (VL_EV1_CTL_BASE + 67)
+#define VL_EV1_CSC_BLANK                (VL_EV1_CTL_BASE + 68)
+#define VL_EV1_CSC_BLACK                (VL_EV1_CTL_BASE + 69)
+#define VL_EV1_CSC_WHITE                (VL_EV1_CTL_BASE + 70)
+#define VL_EV1_CSC_UVGAIN               (VL_EV1_CTL_BASE + 71)
+#define VL_EV1_CSC_QUANTIZE             (VL_EV1_CTL_BASE + 72)
+#define VL_EV1_CSC_SUBADDR              (VL_EV1_CTL_BASE + 73)
+#define VL_EV1_CSC_LOAD			(VL_EV1_CTL_BASE + 74)
+#define VL_EV1_ENC_LOAD	     		(VL_EV1_CTL_BASE + 75)
+#define VL_EV1_DBOB_INPUT1              (VL_EV1_CTL_BASE + 76)
+#define VL_EV1_DBOB_INPUT2              (VL_EV1_CTL_BASE + 77)
+#define VL_EV1_DBOB_VBSELECT            (VL_EV1_CTL_BASE + 78)
+#define VL_EV1_DBOB_PIXEL_MODE          (VL_EV1_CTL_BASE + 79)
+#define VL_EV1_DBOB_PIXEL_FORMAT        (VL_EV1_CTL_BASE + 80)
+#define VL_EV1_DBOB_LINE                (VL_EV1_CTL_BASE + 81)
+#define VL_EV1_DBOB_DELAY               (VL_EV1_CTL_BASE + 82)
+#define VL_EV1_DBOB_CSC_BLANK           (VL_EV1_CTL_BASE + 83)
+#define VL_EV1_DBOB_CSC_BLACK           (VL_EV1_CTL_BASE + 84)
+#define VL_EV1_DBOB_CSC_WHITE           (VL_EV1_CTL_BASE + 85)
+#define VL_EV1_DBOB_CSC_UVGAIN          (VL_EV1_CTL_BASE + 86)
+#define VL_EV1_DBOB_CSC_QUANTIZE        (VL_EV1_CTL_BASE + 87)
+#define VL_EV1_DBOB_CSC_SUBADDR         (VL_EV1_CTL_BASE + 88)
+#define VL_EV1_DBOB_CSC_LOAD	     	(VL_EV1_CTL_BASE + 89)
+#define VL_EV1_DBOB_DAC0                (VL_EV1_CTL_BASE + 90)
+#define VL_EV1_DBOB_DAC1                (VL_EV1_CTL_BASE + 91)
+#define VL_EV1_DBOB_DAC2                (VL_EV1_CTL_BASE + 92)
+#define VL_EV1_DBOB_DAC3                (VL_EV1_CTL_BASE + 93)
+#define VL_EV1_DBOB_DAC4                (VL_EV1_CTL_BASE + 94)
+#define VL_EV1_DBOB_DAC5                (VL_EV1_CTL_BASE + 95)
+#define VL_EV1_DBOB_DAC6                (VL_EV1_CTL_BASE + 96)
+#define VL_EV1_DBOB_DAC7                (VL_EV1_CTL_BASE + 97)
+#define VL_EV1_TRIGGER_POLARITY         (VL_EV1_CTL_BASE + 98)
+#define VL_EV1_TRIGGER_LINE             (VL_EV1_CTL_BASE + 99)
+#define VL_EV1_DOMINANCE_FIELD          (VL_EV1_CTL_BASE + 100)
+#define VL_EV1_ALPHA_NOT_PIXEL		(VL_EV1_CTL_BASE + 101)
+
+/*
+ * EV1 Keyer controls.
+ */
+
+#define VL_EV1_KEYER_SOURCE		(VL_EV1_CTL_BASE + 102)	/* defunct */
+#define VL_EV1_KEYER_MODE		(VL_EV1_CTL_BASE + 103)
+#define VL_EV1_KEYER_VALUE_LUMA		(VL_EV1_CTL_BASE + 104)
+#define VL_EV1_KEYER_RANGE_LUMA		(VL_EV1_CTL_BASE + 105)
+#define VL_EV1_KEYER_FG_OPACITY		(VL_EV1_CTL_BASE + 106)
+#define VL_EV1_KEYER_VALUE_CHROMA_U	(VL_EV1_CTL_BASE + 107)
+#define VL_EV1_KEYER_RANGE_CHROMA_U	(VL_EV1_CTL_BASE + 108)
+#define VL_EV1_KEYER_VALUE_CHROMA_V	(VL_EV1_CTL_BASE + 109)
+#define VL_EV1_KEYER_RANGE_CHROMA_V	(VL_EV1_CTL_BASE + 110)
+#define VL_EV1_KEYER_DETAIL		(VL_EV1_CTL_BASE + 111)
+#define VL_EV1_WIPE			(VL_EV1_CTL_BASE + 112)
+#define VL_EV1_WIPE_SYMMETRY		(VL_EV1_CTL_BASE + 113)
+#define VL_EV1_WIPE_INVERT		(VL_EV1_CTL_BASE + 114)
+#define VL_EV1_WIPE_EXT_TRIG		(VL_EV1_CTL_BASE + 115)
+
+/* blender flat background controls */
+#define VL_EV1_BLEND_B_FLAT		(VL_EV1_CTL_BASE + 116)
+#define VL_EV1_BLEND_B_Y		(VL_EV1_CTL_BASE + 117)
+#define VL_EV1_BLEND_B_U		(VL_EV1_CTL_BASE + 118)
+#define VL_EV1_BLEND_B_V		(VL_EV1_CTL_BASE + 119)
+
+#define VL_EV1_BLEND_H_FILT		(VL_EV1_CTL_BASE + 120)
+#define VL_EV1_BLEND_SHADOW_ON		(VL_EV1_CTL_BASE + 121)
+#define VL_EV1_BLEND_SHADOW_GAIN	(VL_EV1_CTL_BASE + 122)
+#define VL_EV1_BLEND_SHADOW_OFFSET	(VL_EV1_CTL_BASE + 123)
+
+/* add for elantec ccir genlock circuit */
+#define VL_EV1_CCIR_GENLOCK             (VL_EV1_CTL_BASE + 124)
+
+#define VL_EV1_BRIGHTNESS_VERNIER	(VL_EV1_CTL_BASE + 125)
+#define VL_EV1_CONTRAST_VERNIER		(VL_EV1_CTL_BASE + 126)
+
+/*
+ * New Added Blender MUX controls
+ */
+#define VL_EV1_BLENDER_FG_PIXEL		(VL_EV1_CTL_BASE + 127)
+#define VL_EV1_BLENDER_FG_ALPHA		(VL_EV1_CTL_BASE + 128)
+#define VL_EV1_BLENDER_BG_PIXEL		(VL_EV1_CTL_BASE + 129)
+#define VL_EV1_BLENDER_BG_ALPHA		(VL_EV1_CTL_BASE + 130)
+
+#define VL_EV1_BLENDER_XYMIX		(VL_EV1_CTL_BASE + 131)
+#define VL_EV1_BLENDER_THRESH		(VL_EV1_CTL_BASE + 132)
+#define VL_EV1_BLENDER_VRAND		(VL_EV1_CTL_BASE + 133)
+#define VL_EV1_BLENDER_HRAND		(VL_EV1_CTL_BASE + 134)
+#define VL_EV1_BLENDER_SLICE_SEL	(VL_EV1_CTL_BASE + 135)
+#define VL_EV1_BLENDER_SEL_MODE		(VL_EV1_CTL_BASE + 136)
+
+/*
+ * Controls for the New Indigo2 Video Board
+ */
+
+#define VL_EV1_AUTOMATIC_BRIGHTNESS	(VL_EV1_CTL_BASE + 137)
+#define VL_EV1_AUTOMATIC_CONTRAST	(VL_EV1_CTL_BASE + 138)
+
+
+/*
+ *	values to load into shutter control
+ */
+#define VL_EV1_INDYCAM_SHUTTER_60	0	/* 1/60 second */
+#define VL_EV1_INDYCAM_SHUTTER_100	1	/* 1/100 second */
+#define VL_EV1_INDYCAM_SHUTTER_125	2	/* 1/125 second */
+#define VL_EV1_INDYCAM_SHUTTER_250	3	/* 1/250 second */
+#define VL_EV1_INDYCAM_SHUTTER_500	4	/* 1/500 second */
+#define VL_EV1_INDYCAM_SHUTTER_1000	5	/* 1/1000 second */
+#define VL_EV1_INDYCAM_SHUTTER_2000	6	/* 1/2000 second */
+#define VL_EV1_INDYCAM_SHUTTER_4000	7	/* 1/4000 second */
+#define VL_EV1_INDYCAM_SHUTTER_10000	8	/* 1/10000 second */
+
+#endif
+
+/* EOF dev_ev1.h */
+
+
+

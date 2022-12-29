@@ -1,0 +1,11 @@
+#ifndef __CSTRING__
+#define __CSTRING__
+#ifndef _LIBC_IN_NAMESPACE_STD_
+#error This header requires the -LANG:libc_in_namespace_std option
+#endif /* _LIBC_IN_NAMESPACE_STD_ */
+#include <internal/string_core.h>
+#endif /* __CSTRING__ */
+
+// Local Variables:
+// mode:C++
+// End:

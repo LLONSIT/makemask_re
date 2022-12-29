@@ -1,0 +1,8 @@
+// The lack of inclusion guards is deliberate, because of NDEBUG.  See
+// section 17.4.2.1, paragraph 2, of the C++ standard.
+
+#include <internal/assert_core.h>
+
+// Local Variables:
+// mode:C++
+// End:

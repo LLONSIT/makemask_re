@@ -1,0 +1,8 @@
+#ifndef __CISO646__
+#define __CISO646__
+#include <iso646.h>
+#endif /* __CISO646__ */
+
+// Local Variables:
+// mode:C++
+// End:

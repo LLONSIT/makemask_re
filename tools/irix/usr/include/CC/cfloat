@@ -1,0 +1,8 @@
+#ifndef __CFLOAT__
+#define __CFLOAT__
+#include <internal/float_core.h>
+#endif /* __CFLOAT__ */
+
+// Local Variables:
+// mode:C++
+// End:

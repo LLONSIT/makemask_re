@@ -1,0 +1,8 @@
+#ifndef __CWCTYPE__
+#define __CWCTYPE__
+#include <internal/wctype_core.h>
+#endif /* __CWCTYPE__ */
+
+// Local Variables:
+// mode:C++
+// End:

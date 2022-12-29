@@ -1,0 +1,16 @@
+#ifndef __CWCHAR__
+#define __CWCHAR__
+#ifndef _LIBC_IN_NAMESPACE_STD_
+#error This header requires the -LANG:libc_in_namespace_std option
+#endif /* _LIBC_IN_NAMESPACE_STD_ */
+#include <cstdio>
+#include <cctype>
+#include <ctime>
+#include <cwctype>
+#include <internal/locale_attr_core.h>
+#include <internal/wchar_core.h>
+#endif /* __CWCHAR__ */
+
+// Local Variables:
+// mode:C++
+// End:

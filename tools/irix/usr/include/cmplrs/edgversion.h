@@ -1,0 +1,6 @@
+#ifndef EDG_VERSION_SYMBOL
+#define EDG_VERSION_SYMBOL "__edg_version_sym_5"
+#define EDG_VERSION_VARIABLE __edg_version_sym_5
+#define EDG_DELTA_VERSION_SYMBOL "__edg_delta_version_sym_5"
+#define EDG_DELTA_VERSION_VARIABLE __edg_delta_version_sym_5
+#endif

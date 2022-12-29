@@ -1,0 +1,9 @@
+#ifndef __CLIMITS__
+#define __CLIMITS__
+#include <internal/limits_core.h>
+#endif /* __CLIMITS__ */
+
+// Local Variables:
+// mode:C++
+// End:
+

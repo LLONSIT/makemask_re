@@ -1,0 +1,113 @@
+/*
+new -- Include file for C++ default operator new.
+*/
+
+#ifndef __NEW_INCLUDED
+#define __NEW_INCLUDED
+
+#ifndef __STDDEF_H
+#include <stddef.h>
+#endif
+#include <exception>
+
+#ifdef __EXCEPTIONS
+#define __NEW_THROW_BAD_ALLOC throw(std::bad_alloc)
+#define __NEW_THROW_NOTHING throw()
+#else
+#define __NEW_THROW_BAD_ALLOC 
+#define __NEW_THROW_NOTHING 
+#endif
+
+#ifdef _NAMESPACES
+
+namespace std {
+  class bad_alloc : public std::exception {
+  public:
+    bad_alloc() __NEW_THROW_NOTHING;
+    bad_alloc(const bad_alloc&) __NEW_THROW_NOTHING;
+    bad_alloc& operator=(const bad_alloc&) __NEW_THROW_NOTHING;
+    virtual ~bad_alloc() __NEW_THROW_NOTHING;
+    virtual const char* what() const __NEW_THROW_NOTHING;
+  };
+
+  typedef void (*new_handler)();
+  new_handler set_new_handler(new_handler) __NEW_THROW_NOTHING;
+  struct nothrow_t { };
+  // Declaration of object nothrow to permit the use of the placement new
+  // syntax: new (nothrow) T;
+  const nothrow_t nothrow = {};
+
+}  /* namespace std */
+
+#endif /* _NAMESPACES */
+
+// Make sure we don't define the same things twice in new and new.h
+#ifndef __NEW_H
+
+/*
+Normal operator new routine. 
+*/
+ void *operator new(size_t) __NEW_THROW_BAD_ALLOC;
+
+/*
+Nothrow version of operator new.
+*/
+#if _COMPILER_VERSION >= 730 && _MIPS_SIM != _MIPS_SIM_ABI32 && \
+    defined(_NAMESPACES)
+void *operator new(size_t, const std::nothrow_t&) __NEW_THROW_NOTHING;
+#endif
+
+/*
+Placement new 
+*/
+#if __EDG_ABI_COMPATIBILITY_VERSION >= 229
+#if _MIPS_SIM != _MIPS_SIM_ABI32
+inline void *operator new(size_t, void* __p) __NEW_THROW_NOTHING { return __p; }
+#else
+void *operator new[](size_t, void*);
+#endif
+#endif
+
+/*
+Array new.
+*/
+void *operator new[](size_t) __NEW_THROW_BAD_ALLOC;
+
+/*
+Placement array new 
+*/
+#if __EDG_ABI_COMPATIBILITY_VERSION >= 229
+#if _MIPS_SIM != _MIPS_SIM_ABI32
+inline void *operator new[](size_t, void* __p) __NEW_THROW_NOTHING { return __p; }
+#else
+void *operator new[](size_t, void*);
+#endif
+#endif
+
+/*
+Nothrow version of array new.
+*/
+#if _COMPILER_VERSION >= 730 && _MIPS_SIM != _MIPS_SIM_ABI32 && \
+    defined(_NAMESPACES)
+void *operator new[](size_t,
+                     const std::nothrow_t&) __NEW_THROW_NOTHING;
+#endif
+
+#endif /* __NEW_H */
+
+/* operator delete */
+
+#if _COMPILER_VERSION >= 730 && _MIPS_SIM != _MIPS_SIM_ABI32
+void operator delete(void*) __NEW_THROW_NOTHING;
+void operator delete[](void*) __NEW_THROW_NOTHING;
+/* Placement operator delete is not yet supported */
+#endif /* 730 and !o32 */
+
+#undef __NEW_THROW_BAD_ALLOC 
+#undef __NEW_THROW_NOTHING 
+
+#endif /* __NEW_INCLUDED */
+
+// Local Variables:
+// mode:C++
+// End:

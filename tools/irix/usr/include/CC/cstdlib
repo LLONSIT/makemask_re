@@ -1,0 +1,17 @@
+#ifndef __CSTDLIB__
+#define __CSTDLIB__
+#ifndef _LIBC_IN_NAMESPACE_STD_
+#error This header requires the -LANG:libc_in_namespace_std option
+#endif /* _LIBC_IN_NAMESPACE_STD_ */
+#include <internal/stdlib_core.h>
+
+__SGI_LIBC_BEGIN_NAMESPACE_STD
+__SGI_LIBC_USING_FROM_GLOBAL(div_t)
+__SGI_LIBC_USING_FROM_GLOBAL(ldiv_t)
+__SGI_LIBC_END_NAMESPACE_STD
+
+#endif /* __CSTDLIB__ */
+
+// Local Variables:
+// mode:C++
+// End:
